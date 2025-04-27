@@ -2,12 +2,13 @@ package com.example.response;
 
 import com.example.DTO.ArticleDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsResponse {
-    private String status;
-    private int totalResults;
-    private List<ArticleDTO> articles;
+    private String status ="error";
+    private int totalResults =0;
+    private List<ArticleDTO> articles = new ArrayList<>();
 
     public String getStatus() {
         return status;
