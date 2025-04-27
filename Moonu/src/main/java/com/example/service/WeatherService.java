@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.DTO.WeatherDTO;
 import com.example.response.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,5 +23,24 @@ public class WeatherService {
   }catch(Exception e){
       throw new RuntimeException("Error fetching weather data OR City not found");
   }
+    }
+
+    public WeatherDTO getWeatherByCityName(String cityName) {
+        String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric";
+
+        WeatherResponse response;
+        try {
+            response = restTemplate.getForObject(apiUrl, WeatherResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("City not found or API error!");
+        }
+
+        // Extract required data and return a clean DTO
+        return new WeatherDTO(
+                response.getName(),
+                response.getMain().getTemp(),
+                response.getMain().getHumidity(),
+                response.getWeather().get(0).getDescription() // Get first weather condition
+        );
     }
 }

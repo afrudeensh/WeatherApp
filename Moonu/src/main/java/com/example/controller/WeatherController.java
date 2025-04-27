@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.DTO.WeatherDTO;
 import com.example.response.WeatherResponse;
 import com.example.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,4 +17,9 @@ public class WeatherController {
     public WeatherResponse getWeather(@RequestParam String city) {
         return weatherService.getWeatherByCity(city);
     }
+    @GetMapping("/weatherCheck")
+    public WeatherDTO getWeatherCheck(@RequestParam String city) {
+        return weatherService.getWeatherByCityName(city);
+    }
+
 }
