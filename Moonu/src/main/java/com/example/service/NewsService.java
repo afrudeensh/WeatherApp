@@ -19,9 +19,8 @@ public class NewsService {
         this.restTemplate = restTemplate;
     }
 
-    public List<ArticleDTO> getLatestNews(String category) {
+    public NewsResponse getLatestNews(String category) {
         String url = String.format("https://newsapi.org/v2/top-headlines?category=%s&apiKey=%s", category, apiKey);
-        NewsResponse response = restTemplate.getForObject(url, NewsResponse.class);
-        return response != null ? response.getArticles() : null;
+        return restTemplate.getForObject(url, NewsResponse.class);
     }
 }
