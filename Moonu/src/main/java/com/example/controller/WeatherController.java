@@ -17,6 +17,7 @@ public class WeatherController {
     public WeatherResponse getWeather(@RequestParam String city) {
         return weatherService.getWeatherByCity(city);
     }
+
     @GetMapping("/weatherCheck")
     public WeatherDTO getWeatherCheck(@RequestParam String city) {
         return weatherService.getWeatherByCityName(city);

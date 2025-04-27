@@ -36,6 +36,7 @@ public class WeatherService {
         }
 
         // Extract required data and return a clean DTO
+        assert response != null;
         return new WeatherDTO(
                 response.getName(),
                 response.getMain().getTemp(),
