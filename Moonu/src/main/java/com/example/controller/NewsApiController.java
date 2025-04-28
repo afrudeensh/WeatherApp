@@ -4,7 +4,6 @@ import com.example.response.NewsResponse;
 import com.example.response.SourceResponse;
 import com.example.service.NewsService;
 import com.example.utils.NewsApiDefaults;
-import com.example.utils.NewsApiUrls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/news")
-public class NewsController {
+@RequestMapping("/api/news/v2")
+public class NewsApiController {
 
     @Autowired
     private NewsService newsService;
@@ -54,4 +53,11 @@ public class NewsController {
                 country
         );
     }
+    @GetMapping("/date")
+    public NewsResponse getNewsByDateRange(@RequestParam String query,
+                                           @RequestParam String from,
+                                           @RequestParam String to) {
+        return newsService.getNewsByDateRange(query, from, to);
+    }
+
 }
