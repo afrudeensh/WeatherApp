@@ -3,6 +3,8 @@ package com.example.controller;
 import com.example.response.NewsResponse;
 import com.example.response.SourceResponse;
 import com.example.service.NewsService;
+import com.example.utils.NewsApiDefaults;
+import com.example.utils.NewsApiUrls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,10 +40,18 @@ public class NewsController {
     public SourceResponse getSources(@RequestParam(required = false) String category,
                                      @RequestParam(required = false) String language,
                                      @RequestParam(required = false) String country) {
+
+        if(language == null || !NewsApiDefaults.isValidLanguage(language)){
+            language = NewsApiDefaults.DEFAULT_LANGUAGE;
+        }
+        if (country == null || !NewsApiDefaults.isValidCountry(country)) {
+            country = NewsApiDefaults.DEFAULT_COUNTRY;
+        }
+
         return newsService.getSources(
                 category != null ? category : "",
-                language != null ? language : "en",
-                country != null ? country : "us"
+                language,
+                country
         );
     }
 }
