@@ -31,4 +31,24 @@ public class GNewsService {
         }
     }
 
+    public GNewsResponse searchGNews(String query, String language, String country) {
+        String url = String.format(
+                "https://gnews.io/api/v4/search?q=%s&lang=%s&country=%s&apiKey=%s",
+                query,
+                language != null ? language : "en",
+                country != null ? country : "us",
+                apiKey
+        );
+
+        try {
+            GNewsResponse response = restTemplate.getForObject(url, GNewsResponse.class);
+            if (response == null) {
+                throw new NewsApiException("Invalid response from GNews API");
+            }
+            return response;
+        } catch (RestClientException ex) {
+            throw new NewsApiException("Failed to fetch news from GNews API", ex);
+        }
+    }
+
 }

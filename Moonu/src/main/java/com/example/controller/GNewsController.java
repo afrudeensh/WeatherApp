@@ -20,4 +20,10 @@ public class GNewsController {
     public GNewsResponse getLatestNews(@RequestParam(defaultValue = "general") String category) {
         return gNewsService.getLatestNews(category);
     }
+    @GetMapping("/search")
+    public GNewsResponse searchGNews(@RequestParam String query,
+                                    @RequestParam(required = false) String language,
+                                    @RequestParam(required = false) String country) {
+        return gNewsService.searchGNews(query, language, country);
+    }
 }
