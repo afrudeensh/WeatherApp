@@ -1,0 +1,51 @@
+<div class="search-controls">
+    <div class="control-group">
+      <label>Select Category:</label>
+      <select [(ngModel)]="selectedCategory">
+        <option value="">--Choose--</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat | titlecase }}</option>
+      </select>
+      <button (click)="fetchTopHeadlines()">Get Headlines</button>
+    </div>
+  
+    <div class="control-group">
+      <label>Search Query:</label>
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Enter search query..." />
+      <button (click)="fetchEverything()">Search</button>
+    </div>
+  </div>
+  
+  <hr>
+  
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <p>Loading...</p>
+  </div>
+  
+  <!-- Top Headlines Section -->
+  <div *ngIf="!isLoading && headlines.length > 0" class="news-section">
+    <h2>Top Headlines - {{ selectedCategory | titlecase }}</h2>
+    <div *ngFor="let article of headlines" class="news-card">
+      <h3>{{ article.title }}</h3>
+      <img *ngIf="article.urlToImage" [src]="article.urlToImage" alt="News Image" class="news-image">
+      <p>{{ article.description }}</p>
+      <a [href]="article.url" target="_blank" class="read-more">Read More</a>
+    </div>
+  </div>
+  
+  <!-- Everything Search Section -->
+  <div *ngIf="!isLoading && everything.length > 0" class="news-section">
+    <h2>Search Results for "{{ searchQuery }}"</h2>
+    <div *ngFor="let article of everything" class="news-card">
+      <h3>{{ article.title }}</h3>
+      <img *ngIf="article.urlToImage" [src]="article.urlToImage" alt="News Image" class="news-image">
+      <p>{{ article.description }}</p>
+      <a [href]="article.url" target="_blank" class="read-more">Read More</a>
+    </div>
+  </div>
+  
+  <!-- No Results Found -->
+  <div *ngIf="!isLoading && headlines.length === 0 && everything.length === 0">
+    <p>No results found. Please try another category or search query.</p>
+  </div>
+  

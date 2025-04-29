@@ -1,0 +1,35 @@
+<!-- <div class="news-container" *ngIf="articles.length > 0; else loading">
+    <div *ngFor="let article of articles" class="news-card">
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.description }}</p>
+      <img *ngIf="article.urlToImage" [src]="article.urlToImage" alt="News Image" class="news-image">
+      <a [href]="article.url" target="_blank">Read More</a>
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <div class="loading-spinner">
+      <p>Loading latest news...</p>
+    </div>
+  </ng-template>
+   -->
+   <div class="news-container" *ngIf="articles.length > 0; else loading">
+    <div *ngFor="let article of articles" class="news-card">
+      
+      <img *ngIf="article.urlToImage" [src]="article.urlToImage" alt="News Image" class="news-image">
+      
+      <div class="news-content">
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.description }}</p>
+        <a [href]="article.url" target="_blank" class="read-more">Read More</a>
+      </div>
+  
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <div class="loading-spinner">
+      <p>Loading latest news...</p>
+    </div>
+  </ng-template>
+  
